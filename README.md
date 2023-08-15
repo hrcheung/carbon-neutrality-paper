@@ -1,13 +1,9 @@
-<a name="readme-top"></a>
-<div align="center">
-<h1 align="center">The Path to Carbon Neutrality: A Time Series Approach</h1>
-</div>
+<p align="center">
+  <a href="https://github.com/hrcheung/carbon-neutrality-paper/blob/main/poster/poster.png">
+    <img src="https://github.com/hrcheung/carbon-neutrality-paper/blob/main/poster/poster.png" width="800">
+  </a>
+</p>
 
-###### Author: Haoran Zhang, Yuchen Dong
-
-<a href="https://github.com/hrcheung/carbon-neutrality-paper/blob/main/poster/poster.png">
-   <img src="https://github.com/hrcheung/carbon-neutrality-paper/blob/main/poster/poster.png" width="800">
-</a>
 
 ### Introduction to This Project
 
