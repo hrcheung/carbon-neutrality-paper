@@ -14,7 +14,7 @@
 %%    mXh:     nk*na matrix
 %%
 
-function mXh = D2_6(vyh, nk, na)
+function mXh = setXHat(vyh, nk, na)
 
 mXh = zeros(nk, na);
 

@@ -2,9 +2,9 @@
 %%                    TVP-VAR package                     %%
 %%--------------------------------------------------------%%
 %%
-%%  [] = D2_1(vt, fldraw)
+%%  [] = timeVaryingPlot(vt, fldraw)
 %%
-%%  "D2_1" draws time-varying D2_8 response
+%%  "timeVaryingPlot" draws time-varying D2_8 response
 %%
 %%  [input]
 %%   (fldraw = 1)
@@ -13,7 +13,7 @@
 %%     vt:   m*1 vector of time points to draw D2_8
 %%
 
-function [] = D2_1(vt, fldraw)
+function [] = timeVaryingPlot(vt, fldraw)
 
 global m_ns m_nk m_nl m_asvar;
 

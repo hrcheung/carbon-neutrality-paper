@@ -210,7 +210,7 @@ for m_k = -nburn : nsim
     end
   %有y 
     mb(nl+1:ns-T, :) ...
-     = D2_11(m_my(nl+1:ns-T,:), amX(:,:,nl+1:ns-T), ...
+     = simulationSmoother(m_my(nl+1:ns-T,:), amX(:,:,nl+1:ns-T), ...
                amG2(:,:,nl+1:ns-T), mSigb, vb0, mSb0)';
 
     
@@ -220,13 +220,13 @@ for m_k = -nburn : nsim
         %y尖
        myh(i, :) = m_my(i, :) - mb(i, :) * amX(:, :, i)';
        %由y尖导出Xt尖
-       amXh(:, :, i) = D2_6(myh(i, :), nk, na);
+       amXh(:, :, i) = setXHat(myh(i, :), nk, na);
        %sigam
        amG2(:, :, i) = diag(exp(mh(i, :)));
     end
   
     ma(nl+1:ns-T, :) ...
-     = D2_11(myh(nl+1:ns-T,:), amXh(:,:,nl+1:ns-T), ...
+     = simulationSmoother(myh(nl+1:ns-T,:), amXh(:,:,nl+1:ns-T), ...
                amG2(:,:,nl+1:ns-T), mSiga, va0, mSa0)';
   
   %%--- sampling h ---%%
