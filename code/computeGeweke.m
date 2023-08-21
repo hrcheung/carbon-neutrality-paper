@@ -15,7 +15,7 @@
 %%    dpv:  P-value for convergence
 %%
 
-function dpv = D2_3(vx, iBm)
+function dpv = computeGeweke(vx, iBm)
 
 ns = length(vx);
 n1 = floor(ns * 0.1);

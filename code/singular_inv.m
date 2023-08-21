@@ -14,7 +14,7 @@
 %%    mAi:     nk*nk matrix
 %%
 
-function mAi = D2_4(mA)
+function mAi = singular_inv(mA)
 
 drA = rcond(mA);
 

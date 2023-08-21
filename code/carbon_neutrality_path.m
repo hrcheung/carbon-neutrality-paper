@@ -199,7 +199,7 @@ for m_k = -nburn : nsim
 
     for i = nl+1 : ns-T
         %把a转成A，算奇异矩阵A逆
-        mAinv = D2_4(setLowerTriaMat(ma(i, :), nk));
+        mAinv = singular_inv(setLowerTriaMat(ma(i, :), nk));
         %inv(A)*sigma*sigma*inv(A)'
         amG2(:, :, i) = mAinv * diag(exp(mh(i,:))) * mAinv';
         %inv(A)
