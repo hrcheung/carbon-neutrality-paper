@@ -87,7 +87,7 @@ amG2 = zeros(nk, nk, ns);
 mai = zeros(ns, na);
 %此处有y
 for i = nl+1 : ns-T
-    amX(:, :, i) = D2_7(m_my(i-nl:i-1, :), m_fli);
+    amX(:, :, i) = setMatrix(m_my(i-nl:i-1, :), m_fli);
 end
 %每一步的beta均值 18个
 mb = zeros(ns, nb);
@@ -202,7 +202,7 @@ for m_k = -nburn : nsim
 
     for i = nl+1 : ns-T
         %把a转成A，算奇异矩阵A逆
-        mAinv = D2_4(D2_2(ma(i, :), nk));
+        mAinv = D2_4(setLowerTriaMat(ma(i, :), nk));
         %inv(A)*sigma*sigma*inv(A)'
         amG2(:, :, i) = mAinv * diag(exp(mh(i,:))) * mAinv';
         %inv(A)
@@ -233,7 +233,7 @@ for m_k = -nburn : nsim
 
     for i = nl+1 : ns-T
         %算At*yt尖
-        mya(i, :) = myh(i, :) * D2_2(ma(i, :), nk)';
+        mya(i, :) = myh(i, :) * setLowerTriaMat(ma(i, :), nk)';
     end
            
     for i = 1 : nk
@@ -280,7 +280,7 @@ for m_k = -nburn : nsim
    if m_k >= 1
     for i = ns-T+1 : ns     
         %生成Xt
-        amX(:, :, i) = D2_7(m_my(i-nl:i-1, :), m_fli);
+        amX(:, :, i) = setMatrix(m_my(i-nl:i-1, :), m_fli);
         %用上一步y
         
         %beta    + mvnrnd(zeros(nb,1),mSigb,1)      
@@ -298,10 +298,10 @@ for m_k = -nburn : nsim
         %mb(i,:) = mean(mb);
         %每年check预测值，若为负数则为0？
         %预测值部分累积求和
-        myy(i,:) = myy(i, :) + mb(i, :)*amX(:, :, i)' +  rndy* inv(D2_2(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
+        myy(i,:) = myy(i, :) + mb(i, :)*amX(:, :, i)' +  rndy* inv(setLowerTriaMat(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
         %单步预测值
-        m_my(i, :) = mb(i, :)*amX(:, :, i)' + rndy * inv(D2_2(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
-        cc(:) = mb(i, :)*amX(:, :, i)' + rndy * inv(D2_2(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
+        m_my(i, :) = mb(i, :)*amX(:, :, i)' + rndy * inv(setLowerTriaMat(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
+        cc(:) = mb(i, :)*amX(:, :, i)' + rndy * inv(setLowerTriaMat(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
         CO2_2050(m_k,i) = cc(1);
         GDP_2050(m_k,i) = cc(2);
     end       
@@ -477,7 +477,7 @@ fprintf('%s %10.4f %10.4f %10.4f %10.4f %9.3f %9.2f\n',...
         [mean(vsamp), std(vsamp), ...
          vsamp_s(floor(nsim*[0.025;0.975]))'], ...
          D2_3(vsamp, iBm), ...
-         D2_5(vsamp, iBm)/var(vsamp))
+         timeSeriesParzen(vsamp, iBm)/var(vsamp))
 end          
 
 

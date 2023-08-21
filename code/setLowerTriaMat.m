@@ -16,7 +16,7 @@
 %%           elements equal to one
 %%
 
-function mAt = D2_2(va, nk)
+function mAt = setLowerTriaMat(va, nk)
 
 mAt = eye(nk);
 
