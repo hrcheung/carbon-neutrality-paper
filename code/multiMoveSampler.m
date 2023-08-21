@@ -23,7 +23,7 @@
 %%      vhs:  sampled stochastic volatility (ns*1 vector)
 %%
 
-function vhs = D2_12(vy, vh, dsig2, dh00, dsig02, nK)
+function vhs = multiMoveSampler(vy, vh, dsig2, dh00, dsig02, nK)
 
 global m_iachar m_iachmh m_k
 

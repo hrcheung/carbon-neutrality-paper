@@ -238,7 +238,7 @@ for m_k = -nburn : nsim
            
     for i = 1 : nk
         mh(nl+1:ns-T, i) ...
-         = D2_12(mya(nl+1:ns-T,i), mh(nl+1:ns-T,i), ...
+         = multiMoveSampler(mya(nl+1:ns-T,i), mh(nl+1:ns-T,i), ...
                   mSigh(i,i), vh0(i), mSh0(i,i), nK);
     end
 
@@ -336,11 +336,11 @@ for m_k = -nburn : nsim
         if m_flfi == 1
             msampb = msampb + mb(1:ns - T, vidb);
             
-      %%--- D2_8 response ---%%
+      %%--- timeVaryingResponse response ---%%
       %脉冲相应函数
         else
           mimpm = mimpm ...
-                + D2_8(nl, m_nimp, mb(1:ns - T, vidb), ma(1:ns - T, :), mh(1:ns - T, :));
+                + timeVaryingResponse(nl, m_nimp, mb(1:ns - T, vidb), ma(1:ns - T, :), mh(1:ns - T, :));
         end
         
     end
@@ -712,10 +712,10 @@ if m_fli == 1
   %%%%%%%xlswrite('tvpvar_int.xlsx', [(1:ns - T)', mout], 'Sheet1', 'A3');
 end
 
-%% save D2_8 response %%
+%% save timeVaryingResponse response %%
 
 if m_flfi == 1
-    mimpm = D2_8(nl, m_nimp, msampb/nsim, msampa,...
+    mimpm = timeVaryingResponse(nl, m_nimp, msampb/nsim, msampa,...
                     msamph);
 else
     mimpm = mimpm / nsim;

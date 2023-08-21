@@ -16,7 +16,7 @@
 %%    mimp:  (ns*nlen)*(nk^2) matrix
 %%
 
-function mimp = D2_8(nl, nlen, mb, ma, mh)
+function mimp = timeVaryingResponse(nl, nlen, mb, ma, mh)
 
 ns = size(mh, 1);
 nk = size(mh, 2);
