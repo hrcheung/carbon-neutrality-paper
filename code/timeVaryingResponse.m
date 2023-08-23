@@ -16,7 +16,7 @@
 %%    mimp:  (ns*nlen)*(nk^2) matrix
 %%
 
-function mimp = D2_8(nl, nlen, mb, ma, mh)
+function mimp = timeVaryingResponse(nl, nlen, mb, ma, mh)
 
 ns = size(mh, 1);
 nk = size(mh, 2);
@@ -31,14 +31,14 @@ vh = mean(mh(nl+1:end, :));     % average shock size
 for i = 1 : nk
   for t = nl+1 : ns  
     if i == 1
-       amOmsq(:, :, t) = inv(D2_2(ma(t, :), nk)) ...
+       amOmsq(:, :, t) = inv(setLowerTriaMat(ma(t, :), nk)) ...
                        * diag(exp(vh/2));
     end
 
     my(nl+1, :) = amOmsq(:, i, t)';
     
     for j = nl+2 : nl+nlen
-      my(j, :) = mbs(t+j-nl-1,:) * D2_7(my(j-nl:j-1,:), 0)';
+      my(j, :) = mbs(t+j-nl-1,:) * setMatrix(my(j-nl:j-1,:), 0)';
     end
     
     mimp((t-1)*nlen+1:t*nlen, (i-1)*nk+1:i*nk) ...

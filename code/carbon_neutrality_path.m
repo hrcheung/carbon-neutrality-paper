@@ -82,7 +82,7 @@ amG2 = zeros(nk, nk, ns);
 mai = zeros(ns, na);
 %此处有y
 for i = nl+1 : ns-T
-    amX(:, :, i) = D2_7(m_my(i-nl:i-1, :), m_fli);
+    amX(:, :, i) = setMatrix(m_my(i-nl:i-1, :), m_fli);
 end
 %每一步的beta均值 18个
 mb = zeros(ns, nb);
@@ -199,7 +199,7 @@ for m_k = -nburn : nsim
 
     for i = nl+1 : ns-T
         %把a转成A，算奇异矩阵A逆
-        mAinv = D2_4(D2_2(ma(i, :), nk));
+        mAinv = singular_inv(setLowerTriaMat(ma(i, :), nk));
         %inv(A)*sigma*sigma*inv(A)'
         amG2(:, :, i) = mAinv * diag(exp(mh(i,:))) * mAinv';
         %inv(A)
@@ -207,7 +207,7 @@ for m_k = -nburn : nsim
     end
   %有y 
     mb(nl+1:ns-T, :) ...
-     = D2_11(m_my(nl+1:ns-T,:), amX(:,:,nl+1:ns-T), ...
+     = simulationSmoother(m_my(nl+1:ns-T,:), amX(:,:,nl+1:ns-T), ...
                amG2(:,:,nl+1:ns-T), mSigb, vb0, mSb0)';
 
     
@@ -217,25 +217,25 @@ for m_k = -nburn : nsim
         %y尖
        myh(i, :) = m_my(i, :) - mb(i, :) * amX(:, :, i)';
        %由y尖导出Xt尖
-       amXh(:, :, i) = D2_6(myh(i, :), nk, na);
+       amXh(:, :, i) = setXHat(myh(i, :), nk, na);
        %sigam
        amG2(:, :, i) = diag(exp(mh(i, :)));
     end
   
     ma(nl+1:ns-T, :) ...
-     = D2_11(myh(nl+1:ns-T,:), amXh(:,:,nl+1:ns-T), ...
+     = simulationSmoother(myh(nl+1:ns-T,:), amXh(:,:,nl+1:ns-T), ...
                amG2(:,:,nl+1:ns-T), mSiga, va0, mSa0)';
   
   %%--- sampling h ---%%
 
     for i = nl+1 : ns-T
         %算At*yt尖
-        mya(i, :) = myh(i, :) * D2_2(ma(i, :), nk)';
+        mya(i, :) = myh(i, :) * setLowerTriaMat(ma(i, :), nk)';
     end
            
     for i = 1 : nk
         mh(nl+1:ns-T, i) ...
-         = D2_12(mya(nl+1:ns-T,i), mh(nl+1:ns-T,i), ...
+         = multiMoveSampler(mya(nl+1:ns-T,i), mh(nl+1:ns-T,i), ...
                   mSigh(i,i), vh0(i), mSh0(i,i), nK);
     end
 
@@ -277,7 +277,7 @@ for m_k = -nburn : nsim
    if m_k >= 1
     for i = ns-T+1 : ns     
         %生成Xt
-        amX(:, :, i) = D2_7(m_my(i-nl:i-1, :), m_fli);
+        amX(:, :, i) = setMatrix(m_my(i-nl:i-1, :), m_fli);
         %用上一步y        
     
         mb(i, :) = mb(i-1, :) + mvnrnd(zeros(nb,1),mSigb,1);        
@@ -288,10 +288,10 @@ for m_k = -nburn : nsim
         rndy = mvnrnd(zeros(nk,1),eye(nk),1);       
 
         %预测值部分累积求和
-        myy(i,:) = myy(i, :) + mb(i, :)*amX(:, :, i)' +  rndy* inv(D2_2(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
+        myy(i,:) = myy(i, :) + mb(i, :)*amX(:, :, i)' +  rndy* inv(setLowerTriaMat(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
         %单步预测值
-        m_my(i, :) = mb(i, :)*amX(:, :, i)' + rndy * inv(D2_2(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
-        cc(:) = mb(i, :)*amX(:, :, i)' + rndy * inv(D2_2(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
+        m_my(i, :) = mb(i, :)*amX(:, :, i)' + rndy * inv(setLowerTriaMat(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
+        cc(:) = mb(i, :)*amX(:, :, i)' + rndy * inv(setLowerTriaMat(ma(i, :), nk)) * diag(exp(mh(i, :)/2));
         CO2_2050(m_k,i) = cc(1);
         GDP_2050(m_k,i) = cc(2);
     end     
@@ -331,11 +331,11 @@ for m_k = -nburn : nsim
         if m_flfi == 1
             msampb = msampb + mb(1:ns - T, vidb);
             
-      %%--- D2_8 response ---%%
+      %%--- timeVaryingResponse response ---%%
       %脉冲相应函数
         else
           mimpm = mimpm ...
-                + D2_8(nl, m_nimp, mb(1:ns - T, vidb), ma(1:ns - T, :), mh(1:ns - T, :));
+                + timeVaryingResponse(nl, m_nimp, mb(1:ns - T, vidb), ma(1:ns - T, :), mh(1:ns - T, :));
         end
         
     end

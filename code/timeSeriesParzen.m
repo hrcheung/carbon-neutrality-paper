@@ -15,7 +15,7 @@
 %%    dvar:   estimated variance
 %%
 
-function dvar = D2_5(vx, iBm)
+function dvar = timeSeriesParzen(vx, iBm)
 
 ns = length(vx);
 vi = (1 : iBm)' / iBm;

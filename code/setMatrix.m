@@ -14,7 +14,7 @@
 %%    mXt:  nk*nb matrix
 %%
 
-function mXt = D2_7(myi, fli)
+function mXt = setMatrix(myi, fli)
 
 myif = flipud(myi)';
 if fli == 1

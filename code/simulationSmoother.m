@@ -31,7 +31,7 @@
 %%      malpha:  sampled state variable (np*ns matrix)
 %%
 
-function malpha = D2_11(my, amZ, amG2, mH2, va0, mH02)
+function malpha = simulationSmoother(my, amZ, amG2, mH2, va0, mH02)
 
 %%--- set variables ---%%
 
