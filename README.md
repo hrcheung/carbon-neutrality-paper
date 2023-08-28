@@ -50,7 +50,13 @@ We use latest data released in Global Carbon Budget (November 2022 version)
 ## Result
 **CO2 prediction with TVP-VAR model**
 
+<img src="poster/tvp_var_result.png" width="600">
+
 **Carbon Neutrality Path with Monte-Carlo Simulation**
 
-**CO2 prediction with LSTM model**
+<img src="poster/monte_carlo_result.png" width="600">
+
+**CO2 prediction with Deep Learning designer and LSTM model**
+<img src="poster/deep_learning_designer.png" width="600">
+<img src="poster/LSTM_training_result.png" width="600">
 
