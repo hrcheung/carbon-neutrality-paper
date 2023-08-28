@@ -18,7 +18,7 @@ Requires
 
 
 ## Overview
-This paper leveraged MATLAB R2023a and according toolboxes to 
+This example leveraged MATLAB R2023a and according toolboxes to 
 1. predict carbon emission for US, UK, China and Japan with **Time Varying Parameter Vector Auto Regression** (TVP-VAR) time series model
 2. add **Monte Carlo Simulation** to the TVP-VAR Model to simulate the carbon emission path to achieve carbon neutrality goals in 2050.
 3. introduce **Long Short-term Memory** Deep Learning model as an alternative way to predict carbon emission
@@ -41,6 +41,15 @@ We use latest data released in Global Carbon Budget (November 2022 version)
 **CO2 prediction with Deep Learning designer and LSTM model**
 <img src="poster/deep_learning_designer.png" width="600">
 <img src="poster/LSTM_training_result.png" width="600">
+
+## Conclusion 
+
+The aim of this example was to show:
+
+- What MATLAB Econometrics Toolbox and Deep Learning Toolbox are
+- How it can be applied to simulate climate change data
+- Leave a starting point for climate change professionals to use and enhance using their own domain expertise.
+
 
 ### Acknowledgement
 I express my sincere gratitude to The MathWorks Inc. for their funding support. A special acknowledgment is extended to Jason Jumper and David Willingham, for their insightful review of both the paper and poster, and for their support in enabling my conference presentation. I also thank Professor Karl Ni at Northeastern University for his exceptional academic writing guidance. This work has been greatly enhanced by your contributions. 
