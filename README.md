@@ -1,5 +1,7 @@
 # **MATLAB Toolbox for Carbon Neutrality Simulation**  :chart_with_upwards_trend:
 
+<img src="poster/poster.png" width="1000">
+
 Achieving carbon neutrality has become the United Nation’s most urgent mission, but the lack of data, evaluation criteria and associated techniques presents a challenge. Moreover, the energy crisis in 2022 has unexpectedly complicated carbon dioxide (CO2) data, and existing research focuses primarily on CO2 absolute emissions. Policymakers have established milestones on carbon reduction roadmap but have failed to meet them. Therefore, we adopt the new CO2 emission and sink data released in November 2022. Our approach leverages Time Varying Parameter Vector Auto Regression (TVP-VAR) model and Monte-Carlo simulation to monitor the dynamics of net-zero emission roadmap. This approach provides insights into the global pathway towards The United Nations Framework Convention on Climate Change (UNFCCC).
 
 How to use toolboxes in MATLAB for carbon neutrality simulation using **[MATLAB](https://www.mathworks.com/products/matlab.html)**.
